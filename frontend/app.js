@@ -4,12 +4,22 @@ document
     event.preventDefault()
 
     // DOM elements
-    const $inputName = document.querySelector('.name').value
-    const $inputPrice = document.querySelector('.price').value
-    const $inputDescription = document.querySelector('.description').value
-    const $inputStock = document.querySelector('.stock').value
+    const $inputName = document.querySelector('.name')
+    const $inputPrice = document.querySelector('.price')
+    const $inputDescription = document.querySelector('.description')
+    const $inputStock = document.querySelector('.stock')
 
-    const product = { $inputName, $inputPrice, $inputDescription, $inputStock }
+    const name = $inputName.value.trim()
+    const price = parseFloat($inputPrice.value)
+    const description = $inputDescription.value.trim()
+    const stock = parseFloat($inputStock.value, 10)
+
+    if (!name || isNaN(price) || isNaN(stock)) {
+      alert('Please fill out all fields correctly.')
+      return
+    }
+
+    const product = { name, price, description, stock }
 
     try {
       const response = await fetch('http://localhost:5000/api/products', {
@@ -23,7 +33,7 @@ document
         document.querySelector('.addProduct-form').reset()
       } else {
         const errorData = await response.json()
-        alert('Error:', errorData.message)
+        alert('Error: ' + errorData.message)
       }
     } catch (err) {
       console.error('Error:', err)
