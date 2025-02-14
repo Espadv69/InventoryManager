@@ -16,18 +16,22 @@ document
 
     const product = { name, price, description, stock }
 
-    const response = await fetch('http://localhost:5000/api/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(product),
-    })
+    try {
+      const response = await fetch('http://localhost:5000/api/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(product),
+      })
 
-    const data = await response.json()
-    alert(data.message)
-    loadProducts() // ToDo
-
-    $inputName.value = ''
-    $inputPrice.value = ''
-    $inputDescription.value = ''
-    $inputStock.value = ''
+      if (response.ok) {
+        alert('Product added successfully!')
+        document.querySelector('addProduct-form').reset()
+      } else {
+        const errorData = await response.json()
+        alert('Error:', errorData.message)
+      }
+    } catch (err) {
+      console.error('Error:', err)
+      alert('Failed to add product.')
+    }
   })
