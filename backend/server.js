@@ -1,8 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const productRoutes = require('./routes/productRoutes')
 const dotenv = require('dotenv')
-
 dotenv.config()
 
 const app = express()
@@ -19,6 +19,8 @@ mongoose
 app.get('/', async (req, res) => {
   res.send('This is the body page')
 })
+
+app.use('/api/products', productRoutes)
 
 const server = app.listen(PORT, async () => {
   console.log(`\n🔻 Server running on http://localhost:${PORT}`)
