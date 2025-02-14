@@ -12,6 +12,14 @@ app.use(cors())
 const PORT = process.env.PORT || 5000
 
 mongoose
-  .connect('http://127.0.0.1:27017/products')
+  .connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected ✅'))
   .catch((err) => console.error('Error connecting to MongoDB:', err))
+
+app.get('/', async (req, res) => {
+  res.send('This is the body page')
+})
+
+app.listen(PORT, async () => {
+  console.log(`\n🔻 Server running on http://localhost:${PORT}`)
+})
