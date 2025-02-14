@@ -12,3 +12,5 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: 'Error fetching products', err })
   }
 })
+
+module.exports = router
