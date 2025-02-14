@@ -1,14 +1,26 @@
-document.querySelector('.addProduct-form').addEventListener('submit', async function(event) {
-  event.preventDefault()
+document
+  .querySelector('.addProduct-form')
+  .addEventListener('submit', async function (event) {
+    event.preventDefault()
 
-  // DOM elements
-  const $inputName = document.querySelector('name')
-  const $inputPrice = document.querySelector('.price')
-  const $inputDescription = document.querySelector('.description')
-  const $inputStock = document.querySelector('.stock')
+    // DOM elements
+    const $inputName = document.querySelector('name')
+    const $inputPrice = document.querySelector('.price')
+    const $inputDescription = document.querySelector('.description')
+    const $inputStock = document.querySelector('.stock')
 
-  const name = $inputName.value
-  const price = $inputPrice.value
-  const description = $inputDescription.value
-  const stock = $inputStock.value
-})
+    const name = $inputName.value
+    const price = $inputPrice.value
+    const description = $inputDescription.value
+    const stock = $inputStock.value
+
+    const response = await fetch('http://localhost:5000/api/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, price, description, stock }),
+    })
+
+    const data = await response.json()
+    alert(data.message)
+    loadProducts() // ToDo
+  })
