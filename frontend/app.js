@@ -14,13 +14,20 @@ document
     const description = $inputDescription.value
     const stock = $inputStock.value
 
-    const response = await fetch('http://localhost:5000/api/products', {
+    const product = { name, price, description, stock }
+
+    const response = await fetch('http://localhost:5000', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, price, description, stock }),
+      body: JSON.stringify(product),
     })
 
     const data = await response.json()
     alert(data.message)
     loadProducts() // ToDo
+
+    $inputName.value = ''
+    $inputPrice.value = ''
+    $inputDescription.value = ''
+    $inputStock.value = ''
   })
