@@ -20,6 +20,22 @@ app.get('/', async (req, res) => {
   res.send('This is the body page')
 })
 
-app.listen(PORT, async () => {
+const server = app.listen(PORT, async () => {
   console.log(`\n🔻 Server running on http://localhost:${PORT}`)
 })
+
+const cleanUp = async () => {
+  console.log('\n🔻 Closing server...')
+
+  try {
+    await mongoose.connection.close()
+    console.log('🗑️ MongoDB connection closed.')
+  } catch (err) {
+    console.log('Error closing MongoDB:', err)
+  }
+
+  server.close(() => {
+    console.log('✅ Server shut down')
+    process.exit(0)
+  })
+}
