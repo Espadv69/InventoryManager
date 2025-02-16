@@ -111,4 +111,20 @@ async function editProduct(product) {
     description: newDescription.trim(),
     stock: parseFloat(newStock, 10),
   }
+
+  try {
+    const response = await fetch(`http://localhost:5000/${product._id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedProduct),
+    })
+
+    if (response.ok) {
+      alert('Product updated successfully!')
+      loadProducts()
+    } else {
+      const errorData = await response.json()
+      alert('Error: ' + errorData.message)
+    }
+  } catch (err) {}
 }
