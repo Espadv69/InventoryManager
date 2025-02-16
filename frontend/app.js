@@ -126,5 +126,8 @@ async function editProduct(product) {
       const errorData = await response.json()
       alert('Error: ' + errorData.message)
     }
-  } catch (err) {}
+  } catch (err) {
+    console.error('Error:', err)
+    alert('Failed to update product')
+  }
 }
