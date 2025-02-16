@@ -54,6 +54,12 @@ async function loadProducts() {
   products.forEach((product) => {
     const $li = document.createElement('li')
     $li.textContent = `${product.name} - ${product?.description} - ${product.price} - ${product.stock}`
+    
+    // Create edit button
+    const $editButton = document.createElement('button')
+    $editButton.textContent = 'Edit'
+    $editButton.addEventListener('click', () => editProduct) 
+
     $productsList.appendChild($li)
   })
 }
