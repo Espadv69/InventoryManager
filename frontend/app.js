@@ -1,3 +1,5 @@
+loadProducts()
+
 document
   .querySelector('.addProduct-form')
   .addEventListener('submit', async function (event) {
@@ -39,4 +41,19 @@ document
       console.error('Error:', err)
       alert('Failed to add product.')
     }
+    loadProducts()
   })
+
+async function loadProducts() {
+  const response = await fetch('http://localhost:5000/api/products')
+  const products = await response.json()
+
+  const $productsList = document.querySelector('.productsList')
+  $productsList.innerHTML = ''
+
+  products.forEach((product) => {
+    const $li = document.createElement('li')
+    $li.textContent = `${product.name} - ${product?.description} - ${product.price} - ${product.stock}`
+    $productsList.appendChild($li)
+  })
+}
