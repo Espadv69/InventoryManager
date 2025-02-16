@@ -70,3 +70,25 @@ async function loadProducts() {
     $productsList.appendChild($li)
   })
 }
+
+// Delete Product
+async function deleteProduct(id) {
+  if (!confirm('Are you sure you want to delete this Product')) return
+
+  try {
+    const response = await fetch(`htpp://localhost:5000/${id}`, {
+      method: 'DELETE',
+    })
+
+    if (response.ok) {
+      alert('Product deleted successfully')
+      loadProducts()
+    } else {
+      const errorData = await response.json()
+      alert('Error: ' + errorData.message)
+    }
+  } catch (err) {
+    console.error('Error:', err)
+    alert('Failed to delete product.')
+  }
+}
