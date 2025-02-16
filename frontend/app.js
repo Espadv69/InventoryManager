@@ -54,7 +54,7 @@ async function loadProducts() {
   products.forEach((product) => {
     const $li = document.createElement('li')
     $li.textContent = `${product.name} - ${product?.description} - ${product.price} - ${product.stock}`
-    
+
     // Create edit button
     const $editButton = document.createElement('button')
     $editButton.textContent = 'Edit'
@@ -65,6 +65,8 @@ async function loadProducts() {
     $deleteButton.textContent = 'Delete'
     $deleteButton.addEventListener('click', () => deleteProduct)
 
+    $li.appendChild($editButton)
+    $li.appendChild($deleteButton)
     $productsList.appendChild($li)
   })
 }
