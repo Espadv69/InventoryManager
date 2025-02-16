@@ -33,6 +33,7 @@ document
       if (response.ok) {
         alert('Product added successfully!')
         document.querySelector('.addProduct-form').reset()
+        loadProducts()
       } else {
         const errorData = await response.json()
         alert('Error: ' + errorData.message)
@@ -41,7 +42,6 @@ document
       console.error('Error:', err)
       alert('Failed to add product.')
     }
-    loadProducts()
   })
 
 async function loadProducts() {
@@ -58,12 +58,12 @@ async function loadProducts() {
     // Create edit button
     const $editButton = document.createElement('button')
     $editButton.textContent = 'Edit'
-    $editButton.addEventListener('click', () => editProduct)
+    $editButton.addEventListener('click', () => editProduct(product))
 
     // Create delete button
     const $deleteButton = document.createElement('button')
     $deleteButton.textContent = 'Delete'
-    $deleteButton.addEventListener('click', () => deleteProduct)
+    $deleteButton.addEventListener('click', () => deleteProduct(product._id))
 
     $li.appendChild($editButton)
     $li.appendChild($deleteButton)
@@ -73,10 +73,10 @@ async function loadProducts() {
 
 // Delete Product
 async function deleteProduct(id) {
-  if (!confirm('Are you sure you want to delete this Product')) return
+  if (!confirm('Are you sure you want to delete this product?')) return
 
   try {
-    const response = await fetch(`htpp://localhost:5000/${id}`, {
+    const response = await fetch(`http://localhost:5000/api/products/${id}`, {
       method: 'DELETE',
     })
 
@@ -96,9 +96,9 @@ async function deleteProduct(id) {
 // Edit product
 async function editProduct(product) {
   const newName = prompt('Enter new name:', product.name)
-  const newPrice = prompt('Enter new name:', product.price)
-  const newDescription = prompt('Enter new name:', product.description)
-  const newStock = prompt('Enter new name:', product.stock)
+  const newPrice = prompt('Enter new price:', product.price)
+  const newDescription = prompt('Enter new description:', product.description)
+  const newStock = prompt('Enter new stock:', product.stock)
 
   if (!newName || isNaN(newPrice) || isNaN(newStock)) {
     alert('Invalid input. Please enter valid values.')
@@ -113,11 +113,14 @@ async function editProduct(product) {
   }
 
   try {
-    const response = await fetch(`http://localhost:5000/${product._id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedProduct),
-    })
+    const response = await fetch(
+      `http://localhost:5000/api/products/${product._id}`,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedProduct),
+      }
+    )
 
     if (response.ok) {
       alert('Product updated successfully!')
