@@ -92,3 +92,11 @@ async function deleteProduct(id) {
     alert('Failed to delete product.')
   }
 }
+
+// Edit product
+async function editProduct(product) {
+  const newName = prompt('Enter new name:', product.name)
+  const newPrice = prompt('Enter new name:', product.price)
+  const newDescription = prompt('Enter new name:', product.description)
+  const newStock = prompt('Enter new name:', product.stock)
+}
