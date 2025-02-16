@@ -134,3 +134,11 @@ async function editProduct(product) {
     alert('Failed to update product')
   }
 }
+
+const $themeBtn = document.querySelector('.themeToogle')
+let isDark = false
+
+$themeBtn.addEventListener('click', () => {
+  isDark = !isDark
+  document.body.className = isDark ? 'dark' : 'light'
+})
