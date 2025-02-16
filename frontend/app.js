@@ -58,7 +58,12 @@ async function loadProducts() {
     // Create edit button
     const $editButton = document.createElement('button')
     $editButton.textContent = 'Edit'
-    $editButton.addEventListener('click', () => editProduct) 
+    $editButton.addEventListener('click', () => editProduct)
+
+    // Create delete button
+    const $deleteButton = document.createElement('button')
+    $deleteButton.textContent = 'Delete'
+    $deleteButton.addEventListener('click', () => deleteProduct)
 
     $productsList.appendChild($li)
   })
