@@ -99,4 +99,16 @@ async function editProduct(product) {
   const newPrice = prompt('Enter new name:', product.price)
   const newDescription = prompt('Enter new name:', product.description)
   const newStock = prompt('Enter new name:', product.stock)
+
+  if (!newName || isNaN(newPrice) || isNaN(newStock)) {
+    alert('Invalid input. Please enter valid values.')
+    return
+  }
+
+  const updatedProduct = {
+    name: newName.trim(),
+    price: parseFloat(newPrice),
+    description: newDescription.trim(),
+    stock: parseFloat(newStock, 10),
+  }
 }
